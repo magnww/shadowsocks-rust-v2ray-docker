@@ -2,7 +2,11 @@
 chmod -R 755 .
 DOCKER_REGISTY=lostos/shadowsocks-rust
 TAG_NAME=$(curl -s https://api.github.com/repos/shadowsocks/shadowsocks-rust/tags | grep -E 'name' | cut -d '"' -f 4 | head -n 1)
+if [[ $TAG_NAME =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+  STABLE=1
+fi
 echo $TAG_NAME
+echo STABLE=$STABLE
 
 echo "check update..."
 if [ "" != "$(curl -s https://registry.hub.docker.com/v1/repositories/$DOCKER_REGISTY/tags | grep \\\"$TAG_NAME\\\")" ]; then
@@ -51,9 +55,10 @@ for TARGETPLATFORM in linux/amd64 linux/arm/v7 linux/arm64; do # linux/arm/v7 li
 done
 
 docker buildx build \
---push \
---platform linux/amd64,linux/arm/v7,linux/arm64 \
---build-arg TAG_NAME=$TAG_NAME \
---tag $DOCKER_REGISTY:latest \
---tag $DOCKER_REGISTY:$TAG_NAME \
-.
+  --push \
+  --platform linux/amd64,linux/arm/v7,linux/arm64 \
+  --build-arg TAG_NAME=$TAG_NAME \
+  --tag $DOCKER_REGISTY:latest \
+  --tag $DOCKER_REGISTY:$TAG_NAME \
+  ${STABLE:+--tag $DOCKER_REGISTY:stable} \
+  .
