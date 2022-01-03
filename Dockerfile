@@ -1,7 +1,9 @@
 FROM --platform=$TARGETPLATFORM alpine
 ARG TARGETPLATFORM
 ENV ENTRY=ssserver
+RUN apk add --no-cache vnstat
 WORKDIR /ss
-COPY $TARGETPLATFORM .
-COPY entrypoint.sh .
+VOLUME /data
+COPY $TARGETPLATFORM entrypoint.sh vnstat.conf vnstat_dark.conf ./
+EXPOSE 8080
 ENTRYPOINT [ "./entrypoint.sh" ]
