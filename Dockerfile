@@ -1,6 +1,6 @@
 FROM --platform=$TARGETPLATFORM alpine
 ARG TARGETPLATFORM
-ENV ENTRY=ssserver
+ENV ENTRY=ssservice
 RUN apk add --no-cache vnstat
 WORKDIR /ss
 VOLUME /data

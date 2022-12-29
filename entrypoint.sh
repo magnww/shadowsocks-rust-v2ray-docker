@@ -1,6 +1,6 @@
 #!/bin/sh
 if [ -f ./ss.conf ]; then
-  ./$ENTRY -c ./ss.conf &
+  ./$ENTRY server -c ./ss.conf &
 else
   ./$ENTRY $@ &
 fi
