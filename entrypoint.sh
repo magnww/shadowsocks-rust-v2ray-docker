@@ -1,8 +1,8 @@
 #!/bin/sh
-SS_ARGS=$@
+SS_ARGS="$@"
 if [ -f ./ss.conf ]; then
   ./$ENTRY server -c ./ss.conf &
-else if [ $ENTRY = ssservice ]; then
+elif [ $ENTRY = ssservice ]; then
   if [ ${SS_ARGS:0:5} = "local" -o ${SS_ARGS:0:6} = "server" -o ${SS_ARGS:0:7} = "manager" ]; then
     ./$ENTRY $SS_ARGS &
   else
