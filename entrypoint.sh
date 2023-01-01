@@ -20,6 +20,14 @@ if [ -f ./udpspeeder.conf ]; then
   xargs -a udpspeeder.conf ./speederv2 &
 fi
 
+if [ -f ./kcptun_server.conf ]; then
+  ./kcptun_server -c ./kcptun_server.conf &
+fi
+
+if [ -f ./kcptun_client.conf ]; then
+  ./kcptun_client -c ./kcptun_client.conf &
+fi
+
 mkdir -p /data/vnstat
 vnstatd -n --config ./vnstat.conf &
 ./vnstat_web -config /ss/vnstat.conf -config-dark /ss/vnstat_dark.conf &
