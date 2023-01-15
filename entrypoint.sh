@@ -33,6 +33,7 @@ if [ -f ./wireguard.conf ]; then
   ip addr add 10.19.19.1/24 dev wg0
   ip link set wg0 up
   wg setconf wg0 ./wireguard.conf
+  iptables -t nat -A POSTROUTING -s 10.19.19.0/24 -o eth0 -j MASQUERADE
 fi
 
 mkdir -p /data/vnstat
