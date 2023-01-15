@@ -28,6 +28,13 @@ if [ -f ./kcptun_client.conf ]; then
   ./kcptun_client -c ./kcptun_client.conf &
 fi
 
+if [ -f ./wireguard_private ]; then
+  ip link add dev wg0 type wireguard
+  ip addr add 10.19.19.1/24 dev wg0
+  ip link set wg0 up
+  wg set wg0 listen-port 2320 private-key ./wireguard_private
+fi
+
 mkdir -p /data/vnstat
 vnstatd -n --config ./vnstat.conf &
 ./vnstat_web -config /ss/vnstat.conf -config-dark /ss/vnstat_dark.conf &
