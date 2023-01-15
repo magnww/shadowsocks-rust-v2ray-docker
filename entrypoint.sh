@@ -32,7 +32,7 @@ if [ -f ./wireguard.conf ]; then
   ip link add dev wg0 type wireguard
   ip addr add 10.19.19.1/24 dev wg0
   ip link set wg0 up
-  wg set wg0 ./wireguard.conf
+  wg setconf wg0 ./wireguard.conf
 fi
 
 mkdir -p /data/vnstat
