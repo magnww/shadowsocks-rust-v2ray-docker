@@ -34,6 +34,7 @@ if [ -f ./wireguard.conf ]; then
   ip link set wg0 up
   wg setconf wg0 ./wireguard.conf
   iptables -t nat -A POSTROUTING -s 10.19.19.0/24 -o eth0 -j MASQUERADE
+  iptables -A FORWARD -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu
 fi
 
 mkdir -p /data/vnstat
