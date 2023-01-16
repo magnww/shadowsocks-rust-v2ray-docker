@@ -35,7 +35,7 @@ if [ -f ./wireguard.conf ]; then
   wg setconf wg0 ./wireguard.conf
   iptables -t nat -A POSTROUTING -s 10.19.19.0/24 -o eth0 -j MASQUERADE
   iptables -A FORWARD -p tcp --tcp-flags SYN,RST SYN -j TCPMSS --clamp-mss-to-pmtu
-  wstunnel -v -s ws://0.0.0.0/ --restrictTo 127.0.0.1:2320 &
+  ./wstunnel -v --server --restrictTo 127.0.0.1:2320 ws://0.0.0.0:2320 &
 fi
 
 mkdir -p /data/vnstat
