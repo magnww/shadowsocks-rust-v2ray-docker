@@ -16,6 +16,10 @@ if [ -f ./udp2raw.conf ]; then
   ./udp2raw --conf-file udp2raw.conf &
 fi
 
+if [ -f ./udp2raw2.conf ]; then
+  ./udp2raw --conf-file udp2raw2.conf &
+fi
+
 if [ -f ./udpspeeder.conf ]; then
   xargs -a udpspeeder.conf ./speederv2 &
 fi
