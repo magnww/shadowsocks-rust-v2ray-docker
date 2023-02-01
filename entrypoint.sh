@@ -42,6 +42,10 @@ if [ -f ./wireguard.conf ]; then
   ./wstunnel -v --server --restrictTo 127.0.0.1:2320 ws://0.0.0.0:2320 &
 fi
 
+if [ -f ./wstunnel.conf ]; then
+  xargs -a wstunnel.conf ./wstunnel &
+fi
+
 mkdir -p /data/vnstat
 vnstatd -n --config ./vnstat.conf &
 ./vnstat_web -config /ss/vnstat.conf -config-dark /ss/vnstat_dark.conf &
