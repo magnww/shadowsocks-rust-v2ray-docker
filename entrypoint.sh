@@ -46,8 +46,8 @@ if [ -f ./wstunnel.conf ]; then
   xargs -a wstunnel.conf ./wstunnel &
 fi
 
-if [ -f ./datagramtunneler.conf ]; then
-  xargs -a datagramtunneler.conf ./datagramtunneler &
+if [ -f ./udptunnel.conf ]; then
+  xargs -a udptunnel.conf ./udptunnel &
 fi
 
 mkdir -p /data/vnstat
