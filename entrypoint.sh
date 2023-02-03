@@ -46,8 +46,8 @@ if [ -f ./wstunnel.conf ]; then
   xargs -a wstunnel.conf ./wstunnel &
 fi
 
-if [ -f ./udptunnel.conf ]; then
-  xargs -a udptunnel.conf ./udptunnel &
+if [ -f ./chisel.conf ]; then
+  xargs -a chisel.conf ./chisel &
 fi
 
 mkdir -p /data/vnstat
