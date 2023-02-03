@@ -46,6 +46,10 @@ if [ -f ./wstunnel.conf ]; then
   xargs -a wstunnel.conf ./wstunnel &
 fi
 
+if [ -f ./udptunnel.conf ]; then
+  xargs -a udptunnel.conf ./udptunnel &
+fi
+
 mkdir -p /data/vnstat
 vnstatd -n --config ./vnstat.conf &
 ./vnstat_web -config /ss/vnstat.conf -config-dark /ss/vnstat_dark.conf &
