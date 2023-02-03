@@ -7,7 +7,7 @@ RUN apk add --no-cache build-base git && \
 FROM --platform=$TARGETPLATFORM alpine
 ARG TARGETPLATFORM
 ENV ENTRY=ssservice
-RUN apk add --no-cache vnstat wireguard-tools
+RUN apk add --no-cache vnstat wireguard-tools libstdc++
 WORKDIR /ss
 VOLUME /data
 COPY $TARGETPLATFORM entrypoint.sh vnstat.conf vnstat_dark.conf ./
