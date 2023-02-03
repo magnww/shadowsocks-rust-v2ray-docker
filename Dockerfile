@@ -1,9 +1,7 @@
 FROM --platform=$TARGETPLATFORM alpine AS builder
-RUN apk add --no-cache build-base libnsl-dev && \
-    wget http://www.cs.columbia.edu/~lennox/udptunnel/udptunnel-1.1.tar.gz && \
-    tar -zxvf udptunnel-1.1.tar.gz && \
-    cd udptunnel-1.1/ && \
-    ./configure && \
+RUN apk add --no-cache build-base git && \
+    git clone https://github.com/MarkoPaul0/DatagramTunneler.git && \
+    cd DatagramTunneler/ && \
     make
 
 FROM --platform=$TARGETPLATFORM alpine
@@ -13,6 +11,6 @@ RUN apk add --no-cache vnstat wireguard-tools
 WORKDIR /ss
 VOLUME /data
 COPY $TARGETPLATFORM entrypoint.sh vnstat.conf vnstat_dark.conf ./
-COPY --from=builder /udptunnel-1.1/udptunnel ./
+COPY --from=builder /DatagramTunneler/bin/datagramtunneler ./
 EXPOSE 8080
 ENTRYPOINT [ "./entrypoint.sh" ]
