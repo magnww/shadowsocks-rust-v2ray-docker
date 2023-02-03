@@ -1,6 +1,6 @@
 #!/bin/bash
 shopt -s extglob
-chmod -R 755 .
+chmod -R 755 linux
 DOCKER_REGISTY=lostos/shadowsocks-rust
 TAG_NAME=$(curl -s https://api.github.com/repos/shadowsocks/shadowsocks-rust/tags | grep -E 'name' | cut -d '"' -f 4 | head -n 1)
 if [[ $TAG_NAME =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
