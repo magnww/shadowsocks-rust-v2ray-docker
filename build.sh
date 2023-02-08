@@ -1,7 +1,9 @@
 #!/bin/bash
 shopt -s extglob
 chmod -R 755 linux
-DOCKER_REGISTY=lostos/shadowsocks-rust
+NAMESPACE="lostos"
+REPOSITORY="shadowsocks-rust"
+DOCKER_REGISTY=$NAMESPACE/$REPOSITORY
 TAG_NAME=$(curl -s https://api.github.com/repos/shadowsocks/shadowsocks-rust/tags | grep -E 'name' | cut -d '"' -f 4 | head -n 1)
 if [[ $TAG_NAME =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
   STABLE=1
@@ -11,7 +13,7 @@ echo STABLE=$STABLE
 
 if [[ $* != *force* ]]; then
   echo "check update..."
-  if [ "" != "$(curl -s https://registry.hub.docker.com/v1/repositories/$DOCKER_REGISTY/tags | grep \\\"$TAG_NAME\\\")" ]; then
+  if [ "200" = "$(curl -s -o /dev/null -w "%{http_code}" https://hub.docker.com/v2/namespaces/$NAMESPACE/repositories/$REPOSITORY/$TAG_NAME)" ]; then
     echo "no update."
     exit
   fi
@@ -23,7 +25,7 @@ WORKDIR=$(pwd)
 for TARGETPLATFORM in linux/amd64 linux/arm/v7 linux/arm64; do # linux/arm/v7 linux/arm64
   mkdir -p $TARGETPLATFORM
   cd $TARGETPLATFORM
-  rm -f !(udp2raw|speederv2|vnstat_web|kcptun_server|kcptun_client|wstunnel|chisel)
+  rm -f !(udp2raw|speederv2|vnstat_web|kcptun_server|kcptun_client|chisel)
   if [ "$TARGETPLATFORM" = "linux/amd64" ]; then
     ARCH_SS=x86_64-unknown-linux-musl
     ARCH_V2RAY=linux-amd64
