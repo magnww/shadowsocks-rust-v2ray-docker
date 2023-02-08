@@ -13,7 +13,7 @@ echo STABLE=$STABLE
 
 if [[ $* != *force* ]]; then
   echo "check update..."
-  if [ "200" = "$(curl -s -o /dev/null -w "%{http_code}" https://hub.docker.com/v2/namespaces/$NAMESPACE/repositories/$REPOSITORY/$TAG_NAME)" ]; then
+  if [ "200" = "$(curl -s -o /dev/null -w "%{http_code}" https://hub.docker.com/v2/namespaces/$NAMESPACE/repositories/$REPOSITORY/tags/$TAG_NAME)" ]; then
     echo "no update."
     exit
   fi
