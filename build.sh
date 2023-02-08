@@ -44,6 +44,7 @@ for TARGETPLATFORM in linux/amd64 linux/arm/v7 linux/arm64; do # linux/arm/v7 li
     cut -d '"' -f 4 |
     wget -qi - -qO- |
     tar xJ
+  rm -f sslocal ssmanager ssserver ssurl
   curl -s https://api.github.com/repos/shadowsocks/v2ray-plugin/releases/latest |
     grep -E 'browser_download_url' |
     grep $ARCH_V2RAY |
